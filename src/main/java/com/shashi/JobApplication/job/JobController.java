@@ -1,5 +1,6 @@
 package com.shashi.JobApplication.job;
 
+import com.shashi.JobApplication.companies.Company;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,7 @@ public class JobController {
     @PostMapping("/create")
     public ResponseEntity<String> createJob(@RequestBody Job job){
         jobService.create(job);
+        //Company c=job.getCompany();
          return new ResponseEntity<>("jobs Added succesfully", HttpStatus.CREATED);
 
     }

@@ -1,12 +1,26 @@
 package com.shashi.JobApplication.job;
 
+import com.shashi.JobApplication.companies.Company;
+import jakarta.persistence.*;
+
+import java.util.List;
+
+@Entity
 public class Job {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private String description;
     private String minSalary;
     private String maxSalary;
     private String location;
+
+    @ManyToOne
+    private Company company;
+
+    public Job() {
+    }
 
     public Job(Long id, String title, String description, String minSalary, String maxSalary, String location) {
         this.id = id;
@@ -52,5 +66,13 @@ public class Job {
     }
     public void setLocation(String location){
         this.location=location;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }
