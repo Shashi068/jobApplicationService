@@ -33,7 +33,7 @@ public class JobServiceImple implements JobService {
 
     @Override
     public boolean deleteById(Long id) {
-        if(jobRepo.existsById(id)){
+        if (jobRepo.existsById(id)) {
             jobRepo.deleteById(id);
             return true;
         }

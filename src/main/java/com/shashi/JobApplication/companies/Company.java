@@ -1,6 +1,7 @@
 package com.shashi.JobApplication.companies;
 
 import com.shashi.JobApplication.job.Job;
+import com.shashi.JobApplication.reviews.Review;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -16,7 +17,9 @@ public class Company {
     @OneToMany(mappedBy = "company")
     private List<Job> jobs;
 
-   // private List<Reviews> reviews;
+    @OneToMany(mappedBy = "company")
+    private List<Review> reviews;
+
     public Company(){
 
      }
@@ -42,5 +45,21 @@ public class Company {
     }
     public String getDescription(){
         return description;
+    }
+
+    public List<Job> getJobs() {
+        return jobs;
+    }
+
+    public void setJobs(List<Job> jobs) {
+        this.jobs = jobs;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }
