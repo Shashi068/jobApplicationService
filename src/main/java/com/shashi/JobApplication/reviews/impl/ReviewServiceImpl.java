@@ -21,7 +21,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
     @Override
     public List<Review> getAllReviews(Long companyId) {
-        List<Review> reviews=reviewRepo.findByCompanyId(companyId);
+        List<Review> reviews=reviewRepo.findByCompany_Id(companyId);
         return reviews;
     }
 
@@ -34,7 +34,7 @@ public class ReviewServiceImpl implements ReviewService {
         }else {
             throw new IllegalArgumentException("Company with id " + companyId + " not found.");
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -45,31 +45,36 @@ public class ReviewServiceImpl implements ReviewService {
                  .findFirst()
                  .orElse(null);
     }
-
     @Override
-    public boolean updateReview(Long companyId, Long reviewId, Review review) {
-            if(companyService.getById(companyId)!=null){
-                review.setTitle(review.getTitle());
-                review.setRating(review.getRating());
-                review.setDescription(review.getDescription());
-                review.setCompany(review.getCompany());
-                reviewRepo.save(review);
-                return true;
-            }
+    public boolean updateReview(Long companyId, Long reviewId, Review updatedReview) {
+
+        Review existingReview = reviewRepo.findById(reviewId).orElse(null);
+
+        if (existingReview != null && companyService.getById(companyId) != null) {
+
+            existingReview.setTitle(updatedReview.getTitle());
+            existingReview.setDescription(updatedReview.getDescription());
+            existingReview.setRating(updatedReview.getRating());
+
+            reviewRepo.save(existingReview);
+            return true;
+        }
+
         return false;
     }
+
     @Override
     public boolean deleteReview(Long companyId,Long reviewId) {
-        if ((companyService.getById(companyId) != null) && (reviewRepo.existsById(reviewId))) {
-            Review review=reviewRepo.findById(reviewId).orElse(null);
-            Company company=review.getCompany();
+        Review review = reviewRepo.findById(reviewId).orElse(null);
+
+        if (review != null) {
+            Company company = review.getCompany();
             company.getReviews().remove(review);
-            companyService.update(companyId,company);
-             reviewRepo.deleteById(reviewId);
+            companyService.update(companyId, company);
+            reviewRepo.deleteById(reviewId);
             return true;
-        } else {
-            return false;
         }
+        return false;
 
     }
 }

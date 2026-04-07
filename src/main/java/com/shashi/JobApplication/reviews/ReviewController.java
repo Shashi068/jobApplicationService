@@ -16,7 +16,7 @@ public class ReviewController {
         this.reviewService=revireService;
     }
     @GetMapping("/reviews")
-    public ResponseEntity<List<Review>> getAllReviews(Long companyId){
+    public ResponseEntity<List<Review>> getAllReviews(@PathVariable Long companyId){
         return new ResponseEntity<>(reviewService.getAllReviews(companyId), HttpStatus.OK);
     }
     @GetMapping("/reviews/{reviewId}")
@@ -27,10 +27,10 @@ public class ReviewController {
     @PostMapping("/addReview")
     public ResponseEntity<String> addReview(@PathVariable Long companyId, @RequestBody Review review){
        boolean isReviewSaved= reviewService.addReview(companyId,review);
-       if(isReviewSaved) {
-           return new ResponseEntity<>("Failed to add review", HttpStatus.INTERNAL_SERVER_ERROR);
-       }else {
-           return new ResponseEntity<>("Review added successfully", HttpStatus.CREATED);
+       if(isReviewSaved){
+           return new ResponseEntity<>("Review added successfully",HttpStatus.CREATED);
+         }else {
+           return new ResponseEntity<>("Review not added", HttpStatus.BAD_REQUEST);
        }
     }
     @PutMapping("/updateReview/{reviewId}")
