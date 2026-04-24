@@ -3,8 +3,6 @@ package com.shashi.JobApplication.job;
 import com.shashi.JobApplication.companies.Company;
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
 public class Job {
     @Id
@@ -17,6 +15,7 @@ public class Job {
     private String location;
 
     @ManyToOne
+    @JoinColumn(name = "company_id")
     private Company company;
 
     public Job() {
@@ -30,42 +29,53 @@ public class Job {
         this.maxSalary = maxSalary;
         this.location = location;
     }
-    public Long getId(){
+
+    public Long getId() {
         return id;
     }
-    public void setId(Long id){
-        this.id=id;
+
+    public void setId(Long id) {
+        this.id = id;
     }
-    public String getTitle(){
+
+    public String getTitle() {
         return title;
     }
-    public void setTitle(String title){
-        this.title=title;
+
+    public void setTitle(String title) {
+        this.title = title;
     }
-    public String getDescription(){
+
+    public String getDescription() {
         return description;
     }
-    public void setDescription(String description){
-        this.description=description;
 
+    public void setDescription(String description) {
+        this.description = description;
     }
-    public String getMinSalary(){
+
+    public String getMinSalary() {
         return minSalary;
     }
-    public void setMinSalary(String minSalary){
-        this.minSalary=minSalary;
+
+    public void setMinSalary(String minSalary) {
+        this.minSalary = minSalary;
     }
-    public String getMaxSalary(){
+
+    public String getMaxSalary() {
         return maxSalary;
     }
-    public void setMaxSalary(String maxSalary){
-        this.maxSalary=maxSalary;
+
+    public void setMaxSalary(String maxSalary) {
+        this.maxSalary = maxSalary;
     }
-    public String getLocation(){
+
+    public String getLocation() {
         return location;
     }
-    public void setLocation(String location){
-        this.location=location;
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public Company getCompany() {

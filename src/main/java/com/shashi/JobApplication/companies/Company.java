@@ -1,5 +1,6 @@
 package com.shashi.JobApplication.companies;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.shashi.JobApplication.job.Job;
 import com.shashi.JobApplication.reviews.Review;
 import jakarta.persistence.*;
@@ -15,38 +16,46 @@ public class Company {
     private String description;
 
     @OneToMany(mappedBy = "company")
+    @JsonIgnore
     private List<Job> jobs;
 
     @OneToMany(mappedBy = "company")
     private List<Review> reviews;
 
-    public Company(){
-
-     }
-     public Company(Long id,String name,String description){
-      this.id=id;
-      this.name=name;
-      this.description=description;
-   }
-   public void setId(Long id){
-      this.id=id;
-   }
-   public Long getId(){
-      return id;
-   }
-    public void setName(String name){
-        this.name=name;
+    public Company() {
     }
-    public String getName(){
+
+    public Company(Long id, String name, String description) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
         return name;
     }
-    public void setDescription(String description){
-        this.description=description;
+
+    public void setDescription(String description) {
+        this.description = description;
     }
-    public String getDescription(){
+
+    public String getDescription() {
         return description;
     }
 
+    @JsonIgnore
     public List<Job> getJobs() {
         return jobs;
     }

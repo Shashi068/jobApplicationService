@@ -13,8 +13,9 @@ public class Review {
     private String description;
     private double rating;
 
-    @JsonIgnore
     @ManyToOne
+    @JoinColumn(name = "company_id")
+    @JsonIgnore
     private Company company;
 
     public Review() {
@@ -52,6 +53,7 @@ public class Review {
         this.rating = rating;
     }
 
+    @JsonIgnore
     public Company getCompany() {
         return company;
     }
