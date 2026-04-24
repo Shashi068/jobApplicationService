@@ -1,0 +1,10 @@
+target/
+.git/
+.gitignore
+.DS_Store
+.mvn/
+mvnw
+mvnw.cmd
+*.md
+.env
+.dockerignore
